@@ -1,10 +1,12 @@
 import { Bell, Menu } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Topbar({ onMenuClick }) {
+  const navigate = useNavigate();
   return (
     <header className="flex h-16 w-full items-center justify-between gap-5 border-b border-gray-200 bg-white px-6">
       {/* Mobile Menu Button */}
-      <button 
+      <button
         onClick={onMenuClick}
         className="text-gray-700 hover:text-gray-900 lg:hidden"
       >
@@ -34,16 +36,21 @@ export default function Topbar({ onMenuClick }) {
         </span>
 
         {/* Notification bell */}
-        <button className="text-gray-700 hover:text-gray-900">
+        <button onClick={() => navigate('/notification')} className="text-gray-700 hover:text-gray-900">
           <Bell size={20} strokeWidth={2} />
         </button>
 
         {/* Avatar */}
-        <img
-          src="https://i.pravatar.cc/40?img=12"
-          alt="User avatar"
+        <button
+          onClick={() => navigate('/profile')}
           className="h-8 w-8 rounded-full object-cover"
-        />
+        >
+          <img
+            src="https://i.pravatar.cc/40?img=12"
+            alt="User avatar"
+            className="h-8 w-8 rounded-full object-cover"
+          />
+        </button>
       </div>
     </header>
   );

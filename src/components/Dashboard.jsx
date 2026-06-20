@@ -193,28 +193,39 @@ export default function DashboardOverview() {
                         </div>
                         <div className="flex items-center gap-4 text-sm text-gray-600">
                             <span className="flex items-center gap-1.5">
-                                <span className="h-2.5 w-2.5 rounded-full bg-blue-600" />
-                                Success
+                                <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
+                                High
                             </span>
                             <span className="flex items-center gap-1.5">
-                                <span className="h-2.5 w-2.5 rounded-full bg-gray-300" />
-                                Failed
+                                <span className="h-2.5 w-2.5 rounded-full bg-orange-400" />
+                                Medium
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                                Low
                             </span>
                         </div>
                     </div>
 
                     <div className="flex h-64 items-end gap-3 border-b border-dashed border-gray-200">
-                        {chartData.map((d) => (
-                            <div
-                                key={d.date}
-                                className="flex flex-1 flex-col items-center gap-2"
-                            >
+                        {chartData.map((d) => {
+                            const ratio = d.success / maxValue;
+                            let colorClass = "bg-red-500 hover:bg-red-600"; // Low
+                            if (ratio > 0.7) colorClass = "bg-green-500 hover:bg-green-600"; // High
+                            else if (ratio > 0.4) colorClass = "bg-orange-400 hover:bg-orange-500"; // Medium
+
+                            return (
                                 <div
-                                    className="w-full rounded-t-md bg-blue-100 transition-all hover:bg-blue-200"
-                                    style={{ height: `${(d.success / maxValue) * 100}%` }}
-                                />
-                            </div>
-                        ))}
+                                    key={d.date}
+                                    className="flex h-full flex-1 flex-col justify-end items-center gap-2"
+                                >
+                                    <div
+                                        className={`w-full rounded-t-md transition-all ${colorClass}`}
+                                        style={{ height: `${ratio * 100}%` }}
+                                    />
+                                </div>
+                            );
+                        })}
                     </div>
                     <div className="mt-2 flex gap-3 text-xs text-gray-500">
                         {chartData.map((d) => (

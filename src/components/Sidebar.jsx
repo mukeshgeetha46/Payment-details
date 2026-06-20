@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const navItems = [
   { label: "Dashboard", icon: LayoutGrid, link: "/" },
   { label: "Transactions", icon: Receipt, link: "/transaction" },
-  { label: "Settings", icon: Settings },
+  { label: "Settings", icon: Settings, link: "/Setting" },
 ];
 
 export default function Sidebar({ onClose }) {
